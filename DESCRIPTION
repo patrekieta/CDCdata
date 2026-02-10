@@ -1,18 +1,31 @@
 Package: CDCdata
-Type: Package
-Title: What the Package Does (Title Case)
+Title: Access CDC Open Data Portal Datasets
 Version: 0.1.0
 Authors@R: c(
-    person(
-      "Jane", "Doe",
-      email = "jane@example.com",
-      role = c("aut", "cre")
-    )
+    person("Patrick","Rekieta",email = "Patrick.Rekieta@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0009-0005-4446-9665"))
   )
-Description: More about what it does (maybe more than one line).
-    Continuation lines should be indented.
-License: What license is it under?
+Description: Provides a modern R interface to the CDC's open data portal (data.cdc.gov). 
+  Supports dataset discovery, flexible querying with SoQL, pagination, rate limiting, and 
+  optional authentication via app tokens.
+License: MIT + file LICENSE
 Encoding: UTF-8
-LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3
+Imports: 
+    httr2 (>= 1.0.0),
+    jsonlite,
+    cli,
+    rlang,
+    tibble,
+    glue
+Suggests: 
+    testthat (>= 3.0.0),
+    httptest2,
+    knitr,
+    rmarkdown
+Depends: R (>= 4.0.0)
+Config/testthat/edition: 3
 URL: https://github.com/patrekieta/CDCdata
 BugReports: https://github.com/patrekieta/CDCdata/issues
+LazyData: true
+VignetteBuilder: knitr
