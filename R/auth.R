@@ -21,7 +21,7 @@
 #'
 #' cdc_app_token(token = "APP_TOKEN")
 #'
-#' @export cdc_app_token()
+#' @export
 cdc_app_token <- function(token = NULL, quiet = FALSE) {
   env_var <- "CDC_APP_TOKEN"
 
