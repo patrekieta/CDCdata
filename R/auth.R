@@ -1,3 +1,27 @@
+#' Set and Get App token from CDC
+#'
+#' @rdname cdc_app_token
+#'
+#' @description
+#' Helper function for setting and getting your CDC App token for use throughout the package.
+#' This is not strictyly necessary as data.cdc.gov allows anonymous requests. App tokens are useful for
+#' security reasons and to bypass the rate limits that are forced with anonymous API requests.
+#'
+#' @param token App token from [data.cdc.gov](https://data.cdc.gov/). This should be a character string
+#' which gets attached to your system environment for security.
+#'
+#' @return Character. The app token.
+#'
+#' @details To receive your app token, you can go to [https://data.cdc.gov/signup](https://data.cdc.gov/signup). After
+#' setting up your account, you can go to the [developer settings](https://data.cdc.gov/profile/edit/developer_settings) to
+#' create a new app token.
+#'
+#' @examples
+#' cdc_app_token()
+#'
+#' cdc_app_token(token = "APP_TOKEN")
+#'
+#' @export cdc_app_token()
 cdc_app_token <- function(token = NULL, quiet = FALSE) {
   env_var <- "CDC_APP_TOKEN"
 
@@ -9,7 +33,7 @@ cdc_app_token <- function(token = NULL, quiet = FALSE) {
           "No app token set. Anonymous requests have lower rate limits."
         )
         cli::cli_alert_info(
-          "Get a token at {.url https://data.cdc.gov/profile/edit/developer_settings}"
+          "Get a token at {.url https://data.cdc.gov/signup}"
         )
       }
       return(invisible(NULL))
@@ -28,8 +52,25 @@ cdc_app_token <- function(token = NULL, quiet = FALSE) {
   invisible(token)
 }
 
+#' @rdname cdc_app_token
+#'
+#' @examples cdc_set_token(token = "APP_TOKEN")
+#'
+#' @export
+cdc_set_token <- function(token){
+  cdc_app_token(token = token)
+}
 
-get_app_token <- function() {
+#' @rdname cdc_app_token
+#'
+#' @examples cdc_get_token()
+#'
+#' @export
+cdc_get_token <- function() {
   token <- Sys.getenv("CDC_APP_TOKEN", unset = NA_character_)
-  if (is.na(token)) NULL else token
+  if(is.na(token)){
+    return(NULL)
+    } else {
+      return(token)
+    }
 }
