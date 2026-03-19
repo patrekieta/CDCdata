@@ -7,7 +7,7 @@ Authors@R: c(
 Description: Provides a modern R interface to the CDC's open data portal (data.cdc.gov). 
   Supports dataset discovery, flexible querying with SoQL, pagination, rate limiting, and 
   optional authentication via app tokens.
-License: MIT + file LICENSE
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
@@ -16,7 +16,6 @@ Imports:
     jsonlite,
     cli,
     rlang,
-    tibble,
     glue
 Suggests: 
     testthat (>= 3.0.0),

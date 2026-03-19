@@ -36,7 +36,7 @@ cdc_datasets <- function(query = NULL,
                          category = NULL,
                          limit = 20,
                          only_datasets = TRUE) {
-  if (limit > 100) {
+  if(limit > 100) {
     cli::cli_warn("Maximum limit is 100. Setting to 100.")
     limit <- 100
   }
@@ -47,11 +47,11 @@ cdc_datasets <- function(query = NULL,
     limit = limit
   )
 
-  if (!is.null(query)) {
+  if(!is.null(query)) {
     params[["q"]] <- query
   }
 
-  if (only_datasets) {
+  if(only_datasets) {
     params[["only"]] <- "datasets"
   }
 
@@ -64,7 +64,7 @@ cdc_datasets <- function(query = NULL,
   resp <- httr2::req_perform(req)
   data <- httr2::resp_body_json(resp)
 
-  if (length(data$results) == 0) {
+  if(length(data$results) == 0) {
     cli::cli_alert_warning("No datasets found matching your query.")
     return(data.frame(
       id = character(),
@@ -97,7 +97,7 @@ cdc_datasets <- function(query = NULL,
 
   result <- do.call(rbind, results)
 
-  if (!is.null(category)) {
+  if(!is.null(category)) {
     result <- result[grepl(category, result$category, ignore.case = TRUE), ]
   }
 
@@ -235,7 +235,7 @@ cdc_categories <- function(limit = 100) {
   data <- httr2::resp_body_json(resp)
 
   facets <- data$results
-  if (length(facets) == 0) {
+  if(length(facets) == 0) {
     datasets <- cdc_datasets(limit = limit)
     cats <- datasets$category[datasets$category != ""]
     cat_counts <- as.data.frame(table(cats), stringsAsFactors = FALSE)
@@ -297,11 +297,11 @@ cdc_datasets_category <- function(category,
                                       limit = 20,
                                       exact = FALSE) {
 
-  if (!is.character(category) || length(category) != 1 || nchar(category) == 0) {
+  if(!is.character(category) || length(category) != 1 || nchar(category) == 0) {
     cli::cli_abort("{.arg category} must be a non-empty string.")
   }
 
-  if (limit > 100) {
+  if(limit > 100) {
     cli::cli_warn("Maximum limit is 100. Setting to 100.")
     limit <- 100
   }
@@ -314,7 +314,7 @@ cdc_datasets_category <- function(category,
     limit = limit
   )
 
-  if (!is.null(query)) {
+  if(!is.null(query)) {
     params[["q"]] <- query
   }
 
@@ -327,7 +327,7 @@ cdc_datasets_category <- function(category,
   resp <- httr2::req_perform(req)
   data <- httr2::resp_body_json(resp)
 
-  if (length(data$results) == 0) {
+  if(length(data$results) == 0) {
     cli::cli_alert_warning("No datasets found in category {.val {category}}.")
     return(data.frame(
       id = character(),
@@ -359,12 +359,12 @@ cdc_datasets_category <- function(category,
 
   result <- do.call(rbind, results)
 
-  if (exact) {
+  if(exact) {
     result <- result[tolower(result$category) == tolower(category), ]
   }
 
 
-  if (nrow(result) == 0) {
+  if(nrow(result) == 0) {
     cli::cli_alert_warning(
       "No datasets found with exact category match for {.val {category}}."
     )
@@ -400,7 +400,7 @@ cdc_datasets_category <- function(category,
 cdc_tags <- function(limit = 100) {
   datasets <- cdc_datasets(limit = limit)
 
-  if (nrow(datasets) == 0 || all(datasets$tags == "")) {
+  if(nrow(datasets) == 0 || all(datasets$tags == "")) {
     cli::cli_alert_warning("No tags found.")
     return(data.frame(
       tag = character(),
@@ -411,11 +411,12 @@ cdc_tags <- function(limit = 100) {
   all_tags <- unlist(strsplit(datasets$tags, ", "))
   all_tags <- all_tags[all_tags != ""]
 
-  if (length(all_tags) == 0) {
+  if(length(all_tags) == 0) {
     return(data.frame(
       tag = character(),
       count = integer()
-    ))
+    )
+    )
   }
 
   tag_counts <- as.data.frame(table(all_tags), stringsAsFactors = FALSE)
@@ -472,11 +473,11 @@ cdc_datasets_tag <- function(tag,
                                 limit = 20,
                                 exact = FALSE) {
 
-  if (!is.character(tag) || length(tag) != 1 || nchar(tag) == 0) {
+  if(!is.character(tag) || length(tag) != 1 || nchar(tag) == 0) {
     cli::cli_abort("{.arg tag} must be a non-empty string.")
   }
 
-  if (limit > 100) {
+  if(limit > 100) {
     cli::cli_warn("Maximum limit is 100. Setting to 100.")
     limit <- 100
   }
@@ -489,7 +490,7 @@ cdc_datasets_tag <- function(tag,
     limit = limit
   )
 
-  if (!is.null(query)) {
+  if(!is.null(query)) {
     params[["q"]] <- query
   }
 
@@ -502,7 +503,7 @@ cdc_datasets_tag <- function(tag,
   resp <- httr2::req_perform(req)
   data <- httr2::resp_body_json(resp)
 
-  if (length(data$results) == 0) {
+  if(length(data$results) == 0) {
     cli::cli_alert_warning("No datasets found with tag {.val {tag}}.")
     return(data.frame(
       id = character(),
@@ -534,14 +535,14 @@ cdc_datasets_tag <- function(tag,
 
   result <- do.call(rbind, results)
 
-  if (exact) {
+  if(exact) {
     has_exact_tag <- sapply(strsplit(result$tags, ", "), function(tags) {
       tolower(tag) %in% tolower(tags)
     })
     result <- result[has_exact_tag, ]
   }
 
-  if (nrow(result) == 0) {
+  if(nrow(result) == 0) {
     cli::cli_alert_warning(
       "No datasets found with exact tag match for {.val {tag}}."
     )
