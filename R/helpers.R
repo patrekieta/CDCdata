@@ -15,7 +15,7 @@
 #' }
 #'
 #' @export
-cdc_count <- function(dataset_id, ...) {
+cdc_count <- function(dataset_id, where = NULL, ...) {
   result <- cdc_query(
     dataset_id = dataset_id,
     select = "count(*) as n",
@@ -97,4 +97,25 @@ cdc_distinct <- function(dataset_id, column, where = NULL, limit = 100, ...) {
 #' @export
 cdc_preview <- function(dataset_id, n = 10, ...) {
   cdc_query(dataset_id, limit = n, ...)
+}
+
+
+#' Validate dataset ID format
+#'
+#' @param id The dataset ID to validate.
+#' @noRd
+validate_dataset_id <- function(id) {
+
+  if(!is.character(id) || length(id) != 1 || nchar(id) == 0) {
+    cli::cli_abort("{.arg dataset_id} must be a non-empty string.")
+  }
+
+  if (!grepl("^[a-z0-9]{4}-[a-z0-9]{4}$", id)) {
+    cli::cli_warn(
+      c(
+        "Dataset ID {.val {id}} doesn't match expected format.",
+        "i" = "Expected format: {.val xxxx-xxxx} (e.g., {.val swc5-untb})."
+      )
+    )
+  }
 }
