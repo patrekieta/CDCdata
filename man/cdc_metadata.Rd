@@ -22,6 +22,8 @@ in the api metadata so this has to be created manually using \code{\link[=cdc_co
 
 \item{cleaned}{Logical. If \code{TRUE} (default), returns the cleaned metadata. If \code{FALSE}, provides the raw metadata
 including row_count (unless \code{include_rowcount = FALSE}).}
+
+\item{progress}{Logical. If \code{TRUE} (default), shows function progress outputs in console.}
 }
 \value{
 A list containing:
