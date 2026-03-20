@@ -15,6 +15,8 @@ cdc_get_token()
 \arguments{
 \item{token}{App token from \href{https://data.cdc.gov/}{data.cdc.gov}. This should be a character string
 which gets attached to your system environment for security.}
+
+\item{quiet}{Boolean. Whether to include console outputs when running function.}
 }
 \value{
 Character. The app token.

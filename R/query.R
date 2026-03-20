@@ -84,7 +84,7 @@ cdc_query <- function(dataset_id,
 
   format <- if(as_csv){"csv"} else {"json"}
 
-  params <- CDCdata:::build_soql_params(
+  params <- build_soql_params(
     select = select,
     where = where,
     order = order,

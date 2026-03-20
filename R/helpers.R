@@ -68,6 +68,10 @@ cdc_columns <- function(dataset_id, ...) {
 #'
 #' @export
 cdc_distinct <- function(dataset_id, column, where = NULL, limit = 100, ...) {
+  if(is.null(column)){
+    cli::cli_abort("Must provide valid {.arg column} name.")
+  }
+
   cdc_query(
     dataset_id = dataset_id,
     select = c(column, "count(*) as n"),
