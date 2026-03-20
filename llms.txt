@@ -1,0 +1,123 @@
+# CDCdata
+
+`CDCdata` provides a modern R interface to the CDC’s open data portal
+([data.cdc.gov](https://data.cdc.gov)), which runs on the Socrata
+platform. Built on `httr2`, it offers:
+
+- **Dataset discovery** - Search and browse available CDC datasets
+- **Flexible querying** - Full SoQL ([Socrata Query
+  Language](https://dev.socrata.com/docs/queries/)) support
+- **Automatic pagination** - Fetch large datasets with progress
+  indicators
+- **Rate limiting** - Built-in throttling to respect API limits
+- **Authentication** - Optional app tokens for higher rate limits
+
+## Installation
+
+``` r
+devtools::install_github("https://github.com/patrekieta/CDCdata")
+```
+
+## Authentication
+
+Anonymous requests are limited to ~1,000/hour. Register for an app token
+at [data.cdc.gov](https://data.cdc.gov/signup) to increase rate limits.
+
+``` r
+# Set for current session
+cdc_app_token("your-token-here")
+```
+
+## Quick Start
+
+``` r
+library(CDCdata)
+
+# Set for current session
+cdc_app_token("your-token-here")
+
+# Search for datasets
+cdc_datasets("PLACES")
+
+# Preview a dataset
+cdc_preview("swc5-untb")  # PLACES: Local Data for Better Health
+
+# Query with filters
+cdc_query(
+  "swc5-untb",
+  select = c("stateabbr", "locationname", "data_value"),
+  where = "stateabbr = 'MN' AND year = '2023'"
+)
+
+# Fetch large datasets with pagination
+places_mn <- cdc_fetch(
+  "swc5-untb",
+  where = "stateabbr = 'MN'"
+)
+```
+
+## Popular CDC Datasets
+
+| ID          | Name           | Description                                    |
+|-------------|----------------|------------------------------------------------|
+| `swc5-untb` | PLACES         | Local health data at county/census tract level |
+| `eav2-2dfu` | BRFSS          | Behavioral Risk Factor Surveillance            |
+| `9mfq-cb36` | COVID-19 Cases | Case surveillance data                         |
+| `bi63-dtpu` | Mortality      | Multiple cause of death data                   |
+| `n8mc-b4w4` | Vaccinations   | Vaccination coverage data                      |
+
+Find more at [data.cdc.gov](https://data.cdc.gov) or use
+[`cdc_datasets()`](https://patrekieta.github.io/CDCdata/reference/cdc_datasets.md).
+
+> **Disclaimer**: This is an independent, open-source project and is not
+> affiliated with, endorsed by, or representative of the Centers for
+> Disease Control and Prevention (CDC) or the U.S. Government. The
+> original author is a federal contractor supporting CDC but developed
+> this package independently. All data accessed through this package is
+> publicly available via [data.cdc.gov](https://data.cdc.gov).
+
+# Package index
+
+## All functions
+
+- [`build_request()`](https://patrekieta.github.io/CDCdata/reference/build_request.md)
+  : Build a base request to the CDC API
+- [`cdc_app_token()`](https://patrekieta.github.io/CDCdata/reference/cdc_app_token.md)
+  [`cdc_set_token()`](https://patrekieta.github.io/CDCdata/reference/cdc_app_token.md)
+  [`cdc_get_token()`](https://patrekieta.github.io/CDCdata/reference/cdc_app_token.md)
+  : Set and Get App token from CDC
+- [`cdc_browse()`](https://patrekieta.github.io/CDCdata/reference/cdc_browse.md)
+  : Open Dataset in Browser
+- [`cdc_categories()`](https://patrekieta.github.io/CDCdata/reference/cdc_categories.md)
+  : List Available Categories
+- [`cdc_columns()`](https://patrekieta.github.io/CDCdata/reference/cdc_columns.md)
+  : Get Column Names for a Dataset
+- [`cdc_count()`](https://patrekieta.github.io/CDCdata/reference/cdc_count.md)
+  : Get Row Count for a Dataset
+- [`cdc_datasets()`](https://patrekieta.github.io/CDCdata/reference/cdc_datasets.md)
+  : Search CDC Datasets
+- [`cdc_datasets_category()`](https://patrekieta.github.io/CDCdata/reference/cdc_datasets_category.md)
+  : Search Datasets by Category
+- [`cdc_datasets_tag()`](https://patrekieta.github.io/CDCdata/reference/cdc_datasets_tag.md)
+  : Search Datasets by Tag
+- [`cdc_distinct()`](https://patrekieta.github.io/CDCdata/reference/cdc_distinct.md)
+  : Get Distinct Values for a Column
+- [`cdc_fetch()`](https://patrekieta.github.io/CDCdata/reference/cdc_fetch.md)
+  : Fetch Large CDC Datasets with Pagination
+- [`cdc_metadata()`](https://patrekieta.github.io/CDCdata/reference/cdc_metadata.md)
+  : Get Dataset Metadata
+- [`cdc_preview()`](https://patrekieta.github.io/CDCdata/reference/cdc_preview.md)
+  : Preview Dataset Sample
+- [`cdc_query()`](https://patrekieta.github.io/CDCdata/reference/cdc_query.md)
+  : Query a CDC Dataset
+- [`cdc_tags()`](https://patrekieta.github.io/CDCdata/reference/cdc_tags.md)
+  : List Available Tags
+- [`perform_request()`](https://patrekieta.github.io/CDCdata/reference/perform_request.md)
+  : Perform API request and parse response
+
+# Articles
+
+### All vignettes
+
+- [Getting Started with
+  CDCdata](https://patrekieta.github.io/CDCdata/articles/getting-started.md):
