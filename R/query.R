@@ -75,14 +75,16 @@ cdc_query <- function(dataset_id,
                       limit = 1000,
                       offset = NULL,
                       as = c("dataframe", "list", "raw"),
-                      as_csv = FALSE) {
+                      as_csv = FALSE,
+                      progress = interactive()) {
+
   as <- match.arg(as)
+
   validate_dataset_id(dataset_id)
 
   format <- if(as_csv){"csv"} else {"json"}
-  endpoint <- paste0("/resource/", dataset_id, ".", format)
 
-  params <- build_soql_params(
+  params <- CDCdata:::build_soql_params(
     select = select,
     where = where,
     order = order,
@@ -93,20 +95,28 @@ cdc_query <- function(dataset_id,
     q = q
   )
 
-  req <- build_request(endpoint, format = format)
+  req <- build_request(dataset_id = dataset_id, format = format)
 
   if(length(params) > 0) {
     req <- httr2::req_url_query(req, !!!params)
   }
 
-  perform_request(req, as = as, format = format)
+  if(progress) {
+    cli::cli_alert_info("Fetching data from {.val {dataset_id}}...")
+  }
+
+  output <- perform_request(req, as = as, format = format)
+
+  if(progress) {
+    cli::cli_alert_success("Complete: {.val {nrow(output)}} rows fetched.")
+  }
+  return(output)
 }
 
 
 #' Fetch Large CDC Datasets with Pagination
 #'
-#' @description
-#' Retrieves large datasets by automatically paginating through all results.
+#' @description Retrieves large datasets by automatically paginating through all results.
 #' Shows a progress bar for long-running queries.
 #'
 #' @inheritParams cdc_query
@@ -172,7 +182,8 @@ cdc_fetch <- function(dataset_id,
       limit = current_limit,
       offset = offset,
       as = "dataframe",
-      as_csv = as_csv
+      as_csv = as_csv,
+      progress = FALSE
     )
 
     if(nrow(chunk) == 0){
@@ -194,6 +205,9 @@ cdc_fetch <- function(dataset_id,
     if(rows_fetched >= max_rows) {
       break
     }
+    if(rows_fetched != page_size){
+      break
+    }
   }
 
   if(length(all_data) == 0) {
@@ -203,7 +217,29 @@ cdc_fetch <- function(dataset_id,
     return(data.frame())
   }
 
-  result <- do.call(rbind, all_data)
+  result <- tryCatch(
+    {
+      # Try dplyr::bind_rows if available
+      if (requireNamespace("dplyr", quietly = TRUE)) {
+        dplyr::bind_rows(all_data)
+      } else {
+        # Manual column alignment fallback
+        all_cols <- unique(unlist(lapply(all_data, names)))
+        aligned <- lapply(all_data, function(df) {
+          missing_cols <- setdiff(all_cols, names(df))
+          for (col in missing_cols) {
+            df[[col]] <- NA
+          }
+          df[, all_cols, drop = FALSE]
+        })
+        do.call(rbind, aligned)
+      }
+    },
+    error = function(e) {
+      # Last resort: just rbind and let it fail with informative error
+      do.call(rbind, all_data)
+    }
+  )
 
   if(progress) {
     cli::cli_alert_success("Complete: {.val {nrow(result)}} rows fetched.")

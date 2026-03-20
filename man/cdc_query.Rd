@@ -15,7 +15,8 @@ cdc_query(
   limit = 1000,
   offset = NULL,
   as = c("dataframe", "list", "raw"),
-  as_csv = FALSE
+  as_csv = FALSE,
+  progress = interactive()
 )
 }
 \arguments{

@@ -9,10 +9,17 @@
 #'
 #' @return An httr2 request object.
 #'
-#' @noRd
-build_request <- function(endpoint, base_url = .cdc_base_url, format = "json") {
+#' @export
+build_request <- function(dataset_id, base_url = .cdc_base_url, format = "json") {
 
-accept_header <- if(format == "csv"){"text/csv"} else {"application/json"}
+  accept_header <- if(format == "csv"){"text/csv"} else {"application/json"}
+
+  token <- cdc_get_token()
+  if(!is.null(token)){
+    endpoint <- paste0("/api/v3/views/", dataset_id, "/query.", format)
+  } else {
+    endpoint <- paste0("/resource/", dataset_id, ".", format)
+  }
 
   req <- httr2::request(base_url) |>
     httr2::req_url_path_append(endpoint) |>
@@ -26,7 +33,6 @@ accept_header <- if(format == "csv"){"text/csv"} else {"application/json"}
     ) |>
     httr2::req_throttle(rate = .cdc_defaults$rate_limit)
 
-  token <- cdc_get_token()
   if(!is.null(token)) {
     req <- httr2::req_headers(req, `X-App-Token` = token)
   }
@@ -108,7 +114,7 @@ build_soql_params <- function(select = NULL,
 #' @param format Character. Response format: "json" or "csv".
 #'
 #' @return Parsed response in requested format.
-#' @noRd
+#' @export
 perform_request <- function(req, as = "dataframe", format = "json") {
   resp <- httr2::req_perform(req)
 
@@ -125,8 +131,9 @@ perform_request <- function(req, as = "dataframe", format = "json") {
     )
     if(as == "list") {
       return(as.list(data))
+    } else {
+      return(as.data.frame(data))
     }
-    return(as.data.frame(data))
   }
 
   data <- httr2::resp_body_json(resp, simplifyVector = TRUE)

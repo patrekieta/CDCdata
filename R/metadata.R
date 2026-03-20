@@ -73,7 +73,6 @@ cdc_datasets <- function(query = NULL,
       category = character(),
       tags = character(),
       updated_at = character(),
-      rows = integer(),
       url = character()
     ))
   }
@@ -90,7 +89,6 @@ cdc_datasets <- function(query = NULL,
       category = paste(r$classification$domain_category %||% "", collapse = ", "),
       tags = paste(tags_list, collapse = ", "),
       updated_at = resource$updatedAt %||% NA,
-      rows = as.integer(resource$rows_count %||% NA),
       url = link
     )
   })

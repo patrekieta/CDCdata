@@ -14,12 +14,11 @@ RoxygenNote: 7.3.3
 Imports: 
     httr2 (>= 1.0.0),
     jsonlite,
-    cli,
-    rlang,
-    glue
+    cli
 Suggests: 
     testthat (>= 3.0.0),
     httptest2,
+    dplyr,
     knitr,
     rmarkdown
 Depends: R (>= 4.0.0)

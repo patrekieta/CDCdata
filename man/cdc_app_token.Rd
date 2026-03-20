@@ -6,7 +6,7 @@
 \alias{cdc_get_token}
 \title{Set and Get App token from CDC}
 \usage{
-cdc_app_token(token = NULL, quiet = FALSE)
+cdc_app_token(token = NULL, temp = TRUE, quiet = FALSE)
 
 cdc_set_token(token)
 

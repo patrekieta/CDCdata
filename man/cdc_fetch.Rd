@@ -61,3 +61,6 @@ cdc_fetch("swc5-untb", where = "stateabbr = 'CA'", as_csv = TRUE)
 }
 
 }
+\seealso{
+\code{\link[=cdc_query]{cdc_query()}}
+}
