@@ -1,31 +1,31 @@
 # Tests for core validation and utility functions
 
 test_that("validate_dataset_id accepts valid IDs", {
-expect_silent(cdcdata:::validate_dataset_id("swc5-untb"))
-  expect_silent(cdcdata:::validate_dataset_id("abc1-def2"))
-  expect_silent(cdcdata:::validate_dataset_id("1234-5678"))
-  expect_silent(cdcdata:::validate_dataset_id("aaaa-bbbb"))
+expect_silent(CDCdata:::validate_dataset_id("swc5-untb"))
+  expect_silent(CDCdata:::validate_dataset_id("abc1-def2"))
+  expect_silent(CDCdata:::validate_dataset_id("1234-5678"))
+  expect_silent(CDCdata:::validate_dataset_id("aaaa-bbbb"))
 })
 
 test_that("validate_dataset_id warns on invalid format", {
-  expect_warning(cdcdata:::validate_dataset_id("invalid"))
-  expect_warning(cdcdata:::validate_dataset_id("too-long-id"))
-  expect_warning(cdcdata:::validate_dataset_id("SWCS-UNTB"))
-  expect_warning(cdcdata:::validate_dataset_id("abc-defg"))
-  expect_warning(cdcdata:::validate_dataset_id("abcde-fgh"))
-  expect_warning(cdcdata:::validate_dataset_id("ab12-cd"))
+  expect_warning(CDCdata:::validate_dataset_id("invalid"))
+  expect_warning(CDCdata:::validate_dataset_id("too-long-id"))
+  expect_warning(CDCdata:::validate_dataset_id("SWCS-UNTB"))
+  expect_warning(CDCdata:::validate_dataset_id("abc-defg"))
+  expect_warning(CDCdata:::validate_dataset_id("abcde-fgh"))
+  expect_warning(CDCdata:::validate_dataset_id("ab12-cd"))
 })
 test_that("validate_dataset_id errors on wrong type", {
-  expect_error(cdcdata:::validate_dataset_id(NULL))
-  expect_error(cdcdata:::validate_dataset_id(123))
-  expect_error(cdcdata:::validate_dataset_id(c("a", "b")))
-  expect_error(cdcdata:::validate_dataset_id(""))
-  expect_error(cdcdata:::validate_dataset_id(NA))
-  expect_error(cdcdata:::validate_dataset_id(NA_character_))
+  expect_error(CDCdata:::validate_dataset_id(NULL))
+  expect_error(CDCdata:::validate_dataset_id(123))
+  expect_error(CDCdata:::validate_dataset_id(c("a", "b")))
+  expect_error(CDCdata:::validate_dataset_id(""))
+  expect_error(CDCdata:::validate_dataset_id(NA))
+  expect_error(CDCdata:::validate_dataset_id(NA_character_))
 })
 
 test_that("build_soql_params creates correct parameters", {
-  params <- cdcdata:::build_soql_params(
+  params <- CDCdata:::build_soql_params(
     select = c("col1", "col2"),
     where = "col1 = 'a'",
     limit = 100
@@ -37,16 +37,16 @@ test_that("build_soql_params creates correct parameters", {
 })
 
 test_that("build_soql_params handles NULL values", {
-  params <- cdcdata:::build_soql_params()
+  params <- CDCdata:::build_soql_params()
   expect_length(params, 0)
 
-  params <- cdcdata:::build_soql_params(limit = 50)
+  params <- CDCdata:::build_soql_params(limit = 50)
   expect_length(params, 1)
   expect_equal(params[["$limit"]], 50L)
 })
 
 test_that("build_soql_params handles all parameters", {
-  params <- cdcdata:::build_soql_params(
+  params <- CDCdata:::build_soql_params(
     select = c("a", "b", "c"),
     where = "x > 10",
     order = "a DESC",
@@ -68,7 +68,7 @@ test_that("build_soql_params handles all parameters", {
 })
 
 test_that("build_soql_params converts limit and offset to integer", {
-  params <- cdcdata:::build_soql_params(limit = 100.5, offset = 25.9)
+  params <- CDCdata:::build_soql_params(limit = 100.5, offset = 25.9)
 
   expect_type(params[["$limit"]], "integer")
   expect_type(params[["$offset"]], "integer")
@@ -101,7 +101,7 @@ test_that("cdc_app_token sets and retrieves token", {
 })
 
 test_that("null coalescing operator works correctly", {
-  `%||%` <- cdcdata:::`%||%`
+  `%||%` <- CDCdata:::`%||%`
 
   expect_equal(NULL %||% "default", "default")
   expect_equal("value" %||% "default", "value")
@@ -111,7 +111,7 @@ test_that("null coalescing operator works correctly", {
 })
 
 test_that("empty_datasets_df returns correct structure", {
-  df <- cdcdata:::empty_datasets_df()
+  df <- CDCdata:::empty_datasets_df()
 
   expect_s3_class(df, "data.frame")
   expect_equal(nrow(df), 0)
