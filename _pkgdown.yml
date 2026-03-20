@@ -21,6 +21,34 @@ reference:
       - cdc_app_token
       - cdc_get_token
       - cdc_set_token
+  - title: "Metadata"
+    desc: "Access and search for metadata from various datasets."
+    contents:
+      - cdc_datasets
+      - cdc_metadata
+      - cdc_categories
+      - cdc_datasets_category
+      - cdc_tags
+      - cdc_datasets_tag
+      - cdc_browse
+  - title: "Query"
+    desc: "Perform queries to access data."
+    contents:
+      - cdc_query
+      - cdc_fetch
+  - title: "Requests"
+    desc: "Build and perform httr2 requests"
+    contents:
+      - build_request
+      - build_request2
+      - perform_request
+  - title: "Helpers"
+    desc: "Helper functions to view datasets and generate metadata"
+    contents:
+      - cdc_count
+      - cdc_columns
+      - cdc_distinct
+      - cdc_preview
 
 navbar:
   title: "CDCdata"

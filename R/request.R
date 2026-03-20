@@ -51,7 +51,7 @@ build_request <- function(dataset_id, base_url = .cdc_base_url, format = "json")
 #'
 #' @return An httr2 request object.
 #'
-#' @noRd
+#' @export
 build_request2 <- function(endpoint, base_url = .cdc_base_url, format = "json") {
 
   accept_header <- if (format == "csv") "text/csv" else "application/json"
