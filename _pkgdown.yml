@@ -67,7 +67,7 @@ navbar:
     - text: "Guide"
       menu:
         - text: "Get Started"
-          href: articles/get_started.html
+          href: articles/getting-started.html
 
 
   right:
