@@ -38,6 +38,11 @@ cdc_metadata(
   `FALSE`, provides the raw metadata including row_count (unless
   `include_rowcount = FALSE`).
 
+- progress:
+
+  Logical. If `TRUE` (default), shows function progress outputs in
+  console.
+
 ## Value
 
 A list containing:
