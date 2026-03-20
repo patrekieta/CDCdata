@@ -7,7 +7,7 @@ test_that("cdc_metadata validates dataset_id", {
 })
 
 test_that("cdc_metadata returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb")
@@ -22,7 +22,7 @@ test_that("cdc_metadata returns expected structure", {
 })
 
 test_that("cdc_metadata returns columns as data frame", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb", include_columns = TRUE)
@@ -33,7 +33,7 @@ test_that("cdc_metadata returns columns as data frame", {
 })
 
 test_that("cdc_metadata respects include_columns = FALSE", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb", include_columns = FALSE)
@@ -42,7 +42,7 @@ test_that("cdc_metadata respects include_columns = FALSE", {
 })
 
 test_that("cdc_metadata fetches row count", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb", fetch_row_count = TRUE)
@@ -52,7 +52,7 @@ test_that("cdc_metadata fetches row count", {
 })
 
 test_that("cdc_datasets returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets("PLACES", limit = 5)
@@ -63,7 +63,7 @@ test_that("cdc_datasets returns expected structure", {
 })
 
 test_that("cdc_datasets respects limit parameter", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets(limit = 3)
@@ -72,7 +72,7 @@ test_that("cdc_datasets respects limit parameter", {
 })
 
 test_that("cdc_datasets warns on limit > 100", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   expect_warning(cdc_datasets(limit = 150), "100")
@@ -85,7 +85,7 @@ test_that("cdc_datasets_by_category validates category", {
 })
 
 test_that("cdc_datasets_by_category returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets_by_category("COVID-19", limit = 5)
@@ -101,7 +101,7 @@ test_that("cdc_datasets_by_tag validates tag", {
 })
 
 test_that("cdc_datasets_by_tag returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets_by_tag("covid-19", limit = 5)
@@ -111,7 +111,7 @@ test_that("cdc_datasets_by_tag returns expected structure", {
 })
 
 test_that("cdc_categories returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_categories()
@@ -121,7 +121,7 @@ test_that("cdc_categories returns expected structure", {
 })
 
 test_that("cdc_tags returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_tags(limit = 20)

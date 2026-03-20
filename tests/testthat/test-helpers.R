@@ -7,7 +7,7 @@ test_that("cdc_count validates dataset_id", {
 })
 
 test_that("cdc_count returns integer", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_count("swc5-untb")
@@ -18,7 +18,7 @@ test_that("cdc_count returns integer", {
 })
 
 test_that("cdc_count respects where parameter", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   count_all <- cdc_count("swc5-untb")
@@ -35,7 +35,7 @@ test_that("cdc_columns validates dataset_id", {
 })
 
 test_that("cdc_columns returns character vector", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_columns("swc5-untb")
@@ -51,7 +51,7 @@ test_that("cdc_distinct validates inputs", {
 })
 
 test_that("cdc_distinct returns expected structure", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_distinct("swc5-untb", "stateabbr", limit = 10)
@@ -62,7 +62,7 @@ test_that("cdc_distinct returns expected structure", {
 })
 
 test_that("cdc_distinct respects limit", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_distinct("swc5-untb", "stateabbr", limit = 5)
@@ -77,7 +77,7 @@ test_that("cdc_preview validates dataset_id", {
 })
 
 test_that("cdc_preview returns expected rows", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_preview("swc5-untb", n = 5)
@@ -87,7 +87,7 @@ test_that("cdc_preview returns expected rows", {
 })
 
 test_that("cdc_preview respects n parameter", {
-  skip_if_offline()
+  skip_if_cdc_unavailable()
   skip_on_cran()
 
   result3 <- cdc_preview("swc5-untb", n = 3)
