@@ -22,6 +22,11 @@ cdc_count(dataset_id, where = NULL, ...)
   Character. SoQL WHERE clause for filtering rows. Example:
   `"year = '2023' AND stateabbr = 'MN'"`
 
+- ...:
+
+  Arguments passed to
+  [`cdc_query()`](https://patrekieta.github.io/CDCdata/reference/cdc_query.md)
+
 ## Value
 
 Integer. The row count.
