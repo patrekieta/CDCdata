@@ -1,5 +1,9 @@
 # CDCdata
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/patrekieta/CDCdata/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/patrekieta/CDCdata/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
 `CDCdata` provides a modern R interface to the CDC's open data portal ([data.cdc.gov](https://data.cdc.gov)), which runs on the Socrata platform. Built on `httr2`, it offers:
 
 - **Dataset discovery** - Search and browse available CDC datasets
