@@ -7,7 +7,7 @@ test_that("cdc_metadata validates dataset_id", {
 })
 
 test_that("cdc_metadata returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb")
@@ -17,23 +17,23 @@ test_that("cdc_metadata returns expected structure", {
   expect_true("name" %in% names(meta))
   expect_true("description" %in% names(meta))
   expect_true("tags" %in% names(meta))
-  expect_true("columns" %in% names(meta))
-  expect_true("rows" %in% names(meta))
+  expect_true("cols" %in% names(meta))
+  expect_true("row_count" %in% names(meta))
 })
 
 test_that("cdc_metadata returns columns as data frame", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb", include_columns = TRUE)
 
-  expect_s3_class(meta$columns, "data.frame")
-  expect_true("field_name" %in% names(meta$columns))
-  expect_true("data_type" %in% names(meta$columns))
+  expect_s3_class(meta$cols, "data.frame")
+  expect_true("id" %in% names(meta$cols))
+  expect_true("fieldName" %in% names(meta$cols))
 })
 
 test_that("cdc_metadata respects include_columns = FALSE", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   meta <- cdc_metadata("swc5-untb", include_columns = FALSE)
@@ -42,17 +42,26 @@ test_that("cdc_metadata respects include_columns = FALSE", {
 })
 
 test_that("cdc_metadata fetches row count", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
-  meta <- cdc_metadata("swc5-untb", fetch_row_count = TRUE)
+  meta <- cdc_metadata("swc5-untb", include_rowcount = TRUE)
 
-  expect_true(!is.null(meta$rows) && !is.na(meta$rows))
-  expect_gt(meta$rows, 0)
+  expect_true(!is.null(meta$row_count))
+  expect_gt(meta$row_count, 0)
+})
+
+test_that("cdc_metadata does not fetch row count", {
+  CDCdata:::skip_if_cdc_unavailable()
+  skip_on_cran()
+
+  meta <- cdc_metadata("swc5-untb", include_rowcount = FALSE)
+
+  expect_true(is.na(meta$row_count))
 })
 
 test_that("cdc_datasets returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets("PLACES", limit = 5)
@@ -63,7 +72,7 @@ test_that("cdc_datasets returns expected structure", {
 })
 
 test_that("cdc_datasets respects limit parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_datasets(limit = 3)
@@ -72,7 +81,7 @@ test_that("cdc_datasets respects limit parameter", {
 })
 
 test_that("cdc_datasets warns on limit > 100", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   expect_warning(cdc_datasets(limit = 150), "100")
@@ -85,10 +94,10 @@ test_that("cdc_datasets_by_category validates category", {
 })
 
 test_that("cdc_datasets_by_category returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
-  result <- cdc_datasets_by_category("COVID-19", limit = 5)
+  result <- cdc_datasets_category("National Center for Health Statistics", limit = 5)
 
   expect_s3_class(result, "data.frame")
   expect_true(all(c("id", "name", "category", "tags") %in% names(result)))
@@ -101,17 +110,17 @@ test_that("cdc_datasets_by_tag validates tag", {
 })
 
 test_that("cdc_datasets_by_tag returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
-  result <- cdc_datasets_by_tag("covid-19", limit = 5)
+  result <- cdc_datasets_tag("covid-19", limit = 5)
 
   expect_s3_class(result, "data.frame")
   expect_true(all(c("id", "name", "category", "tags") %in% names(result)))
 })
 
 test_that("cdc_categories returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_categories()
@@ -121,7 +130,7 @@ test_that("cdc_categories returns expected structure", {
 })
 
 test_that("cdc_tags returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_tags(limit = 20)

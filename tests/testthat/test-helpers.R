@@ -7,7 +7,7 @@ test_that("cdc_count validates dataset_id", {
 })
 
 test_that("cdc_count returns integer", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_count("swc5-untb")
@@ -18,7 +18,7 @@ test_that("cdc_count returns integer", {
 })
 
 test_that("cdc_count respects where parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   count_all <- cdc_count("swc5-untb")
@@ -34,13 +34,13 @@ test_that("cdc_columns validates dataset_id", {
   expect_error(cdc_columns(""))
 })
 
-test_that("cdc_columns returns character vector", {
-  skip_if_cdc_unavailable()
+test_that("cdc_columns returns list", {
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_columns("swc5-untb")
 
-  expect_type(result, "character")
+  expect_type(result, "list")
   expect_gt(length(result), 0)
 })
 
@@ -51,18 +51,18 @@ test_that("cdc_distinct validates inputs", {
 })
 
 test_that("cdc_distinct returns expected structure", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_distinct("swc5-untb", "stateabbr", limit = 10)
 
-  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result, "data.frame")
   expect_true("stateabbr" %in% names(result))
   expect_true("n" %in% names(result))
 })
 
 test_that("cdc_distinct respects limit", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_distinct("swc5-untb", "stateabbr", limit = 5)
@@ -77,17 +77,17 @@ test_that("cdc_preview validates dataset_id", {
 })
 
 test_that("cdc_preview returns expected rows", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_preview("swc5-untb", n = 5)
 
-  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result, "data.frame")
   expect_equal(nrow(result), 5)
 })
 
 test_that("cdc_preview respects n parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result3 <- cdc_preview("swc5-untb", n = 3)

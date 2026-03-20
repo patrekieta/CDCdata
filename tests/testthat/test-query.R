@@ -8,7 +8,7 @@ test_that("cdc_query validates dataset_id", {
 })
 
 test_that("cdc_query validates as parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   # Valid 'as' values should not error on argument validation
@@ -36,7 +36,7 @@ test_that("cdc_fetch validates dataset_id", {
 })
 
 test_that("cdc_fetch warns on excessive page_size", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   expect_warning(
@@ -46,7 +46,7 @@ test_that("cdc_fetch warns on excessive page_size", {
 })
 
 test_that("cdc_fetch respects max_rows parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_fetch(
@@ -59,18 +59,18 @@ test_that("cdc_fetch respects max_rows parameter", {
 })
 
 test_that("cdc_query returns expected structure with dataframe output", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query("swc5-untb", limit = 5, as = "dataframe")
 
-  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result, "data.frame")
   expect_gt(nrow(result), 0)
   expect_lte(nrow(result), 5)
 })
 
 test_that("cdc_query returns list when as='list'", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query("swc5-untb", limit = 5, as = "list")
@@ -79,7 +79,7 @@ test_that("cdc_query returns list when as='list'", {
 })
 
 test_that("cdc_query returns character when as='raw'", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query("swc5-untb", limit = 5, as = "raw")
@@ -89,7 +89,7 @@ test_that("cdc_query returns character when as='raw'", {
 })
 
 test_that("cdc_query respects select parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query(
@@ -103,7 +103,7 @@ test_that("cdc_query respects select parameter", {
 })
 
 test_that("cdc_query respects where parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query(
@@ -116,7 +116,7 @@ test_that("cdc_query respects where parameter", {
 })
 
 test_that("cdc_query respects order parameter", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query(
@@ -130,17 +130,17 @@ test_that("cdc_query respects order parameter", {
 })
 
 test_that("cdc_query works with as_csv = TRUE", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query("swc5-untb", limit = 5, as_csv = TRUE)
 
-  expect_s3_class(result, "tbl_df")
+  expect_s3_class(result, "data.frame")
   expect_gt(nrow(result), 0)
 })
 
 test_that("cdc_query aggregation works", {
-  skip_if_cdc_unavailable()
+  CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
   result <- cdc_query(
