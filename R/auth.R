@@ -9,6 +9,7 @@
 #'
 #' @param token App token from [data.cdc.gov](https://data.cdc.gov/). This should be a character string
 #' which gets attached to your system environment for security.
+#' @param quiet Boolean. Whether to include console outputs when running function.
 #'
 #' @return Character. The app token.
 #'
