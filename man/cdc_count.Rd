@@ -12,6 +12,8 @@ for PLACES data). You can find this in the dataset URL or via \code{cdc_datasets
 
 \item{where}{Character. SoQL WHERE clause for filtering rows.
 Example: \code{"year = '2023' AND stateabbr = 'MN'"}}
+
+\item{...}{Arguments passed to \code{\link[=cdc_query]{cdc_query()}}}
 }
 \value{
 Integer. The row count.

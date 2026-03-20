@@ -4,6 +4,7 @@
 #' Useful for checking dataset size before fetching.
 #'
 #' @inheritParams cdc_query
+#' @param ... Arguments passed to [cdc_query()]
 #'
 #' @return Integer. The row count.
 #'
