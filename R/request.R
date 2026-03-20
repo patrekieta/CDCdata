@@ -3,7 +3,7 @@
 #' @description Internal function to create an httr2 request object with common
 #' configuration: headers, authentication, retry logic, and rate limiting.
 #'
-#' @param endpoint Character. The API endpoint path.
+#' @param dataset_id Character. The Dataset ID found in data.cdc.gov.
 #' @param base_url Character. The base URL (default: data.cdc.gov).
 #' @param format Character. Response format: "json" or "csv".
 #'

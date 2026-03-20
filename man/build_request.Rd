@@ -7,11 +7,11 @@
 build_request(dataset_id, base_url = .cdc_base_url, format = "json")
 }
 \arguments{
+\item{dataset_id}{Character. The Dataset ID found in data.cdc.gov.}
+
 \item{base_url}{Character. The base URL (default: data.cdc.gov).}
 
 \item{format}{Character. Response format: "json" or "csv".}
-
-\item{endpoint}{Character. The API endpoint path.}
 }
 \value{
 An httr2 request object.
