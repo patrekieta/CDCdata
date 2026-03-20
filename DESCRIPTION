@@ -25,7 +25,7 @@ Suggests:
     rmarkdown
 Depends: R (>= 4.0.0)
 Config/testthat/edition: 3
-URL: https://github.com/patrekieta/CDCdata
+URL: https://github.com/patrekieta/CDCdata, https://patrekieta.github.io/CDCdata/
 BugReports: https://github.com/patrekieta/CDCdata/issues
 LazyData: true
 VignetteBuilder: knitr
