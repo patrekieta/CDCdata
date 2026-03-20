@@ -11,8 +11,8 @@ development:
 
 home:
   links:
-  - text: Original library
-    href: https://echarts.apache.org/
+  - text: CDC Data
+    href: https://data.cdc.gov/
 
 reference:
   - title: "Authenticate"
@@ -55,12 +55,15 @@ navbar:
   left:
     - icon: fa-home
       href: index.html
+      aria-label: Home
     - icon: fa-balance-scale
       href: LICENSE.html
+      aria-label: License document
     # - icon: fa-newspaper
     #   href: news/index.html
     - icon: fa-code
       href: "reference/"
+      aria-label: Reference
     - text: "Guide"
       menu:
         - text: "Get Started"
@@ -70,6 +73,7 @@ navbar:
   right:
     - icon: fab fa-github fa-lg
       href: https://github.com/patrekieta/CDCdata
+      aria-label: Github link
 
   authors:
   Patrick Rekieta:
