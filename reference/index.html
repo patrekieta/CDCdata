@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">CDCdata</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -15,14 +15,14 @@
     </button>
 
     <div id="navbar" class="collapse navbar-collapse ms-3">
-      <ul class="navbar-nav me-auto"><li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+      <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../index.html"><span class="fa fa-home"></span></a></li>
+<li class="nav-item"><a class="nav-link" href="../LICENSE.html"><span class="fa fa-balance-scale"></span></a></li>
+<li class="active nav-item"><a class="nav-link" href="../reference/"><span class="fa fa-code"></span></a></li>
 <li class="nav-item dropdown">
-  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
-  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/getting-started.html">Getting Started with CDCdata</a></li>
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-guide" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Guide</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-guide"><li><a class="dropdown-item" href="../articles/get_started.html">Get Started</a></li>
   </ul></li>
-      </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
- <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/patrekieta/CDCdata/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+      </ul><ul class="navbar-nav"><li class="nav-item"><a class="external-link nav-link" href="https://github.com/patrekieta/CDCdata"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul></div>
 
 
@@ -35,9 +35,106 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="authenticate">Authenticate<a class="anchor" aria-label="anchor" href="#authenticate"></a></h2>
+
+      <div class="section-desc"><p>Create and access your CDC API app token.</p></div>
+
+      <dl></dl></div><div class="section level2">
 
 
+
+
+      <dl><dt>
+
+          <code><a href="cdc_app_token.html">cdc_app_token()</a></code> <code><a href="cdc_app_token.html">cdc_set_token()</a></code> <code><a href="cdc_app_token.html">cdc_get_token()</a></code>
+
+        </dt>
+        <dd>Set and Get App token from CDC</dd>
+      </dl></div><div class="section level2">
+      <h2 id="metadata">Metadata<a class="anchor" aria-label="anchor" href="#metadata"></a></h2>
+
+      <div class="section-desc"><p>Access and search for metadata from various datasets.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="cdc_datasets.html">cdc_datasets()</a></code>
+
+        </dt>
+        <dd>Search CDC Datasets</dd>
+
+        <dt>
+
+          <code><a href="cdc_metadata.html">cdc_metadata()</a></code>
+
+        </dt>
+        <dd>Get Dataset Metadata</dd>
+
+        <dt>
+
+          <code><a href="cdc_categories.html">cdc_categories()</a></code>
+
+        </dt>
+        <dd>List Available Categories</dd>
+
+        <dt>
+
+          <code><a href="cdc_datasets_category.html">cdc_datasets_category()</a></code>
+
+        </dt>
+        <dd>Search Datasets by Category</dd>
+
+        <dt>
+
+          <code><a href="cdc_tags.html">cdc_tags()</a></code>
+
+        </dt>
+        <dd>List Available Tags</dd>
+
+        <dt>
+
+          <code><a href="cdc_datasets_tag.html">cdc_datasets_tag()</a></code>
+
+        </dt>
+        <dd>Search Datasets by Tag</dd>
+
+        <dt>
+
+          <code><a href="cdc_browse.html">cdc_browse()</a></code>
+
+        </dt>
+        <dd>Open Dataset in Browser</dd>
+      </dl></div><div class="section level2">
+      <h2 id="query">Query<a class="anchor" aria-label="anchor" href="#query"></a></h2>
+
+      <div class="section-desc"><p>Perform queries to access data.</p></div>
+
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="cdc_query.html">cdc_query()</a></code>
+
+        </dt>
+        <dd>Query a CDC Dataset</dd>
+
+        <dt>
+
+          <code><a href="cdc_fetch.html">cdc_fetch()</a></code>
+
+        </dt>
+        <dd>Fetch Large CDC Datasets with Pagination</dd>
+      </dl></div><div class="section level2">
+      <h2 id="requests">Requests<a class="anchor" aria-label="anchor" href="#requests"></a></h2>
+
+      <div class="section-desc"><p>Build and perform httr2 requests</p></div>
 
       <dl></dl></div><div class="section level2">
 
@@ -53,24 +150,33 @@
 
         <dt>
 
-          <code><a href="cdc_app_token.html">cdc_app_token()</a></code> <code><a href="cdc_app_token.html">cdc_set_token()</a></code> <code><a href="cdc_app_token.html">cdc_get_token()</a></code>
+          <code><a href="build_request2.html">build_request2()</a></code>
 
         </dt>
-        <dd>Set and Get App token from CDC</dd>
+        <dd>Build a base request to the CDC API</dd>
 
         <dt>
 
-          <code><a href="cdc_browse.html">cdc_browse()</a></code>
+          <code><a href="perform_request.html">perform_request()</a></code>
 
         </dt>
-        <dd>Open Dataset in Browser</dd>
+        <dd>Perform API request and parse response</dd>
+      </dl></div><div class="section level2">
+      <h2 id="helpers">Helpers<a class="anchor" aria-label="anchor" href="#helpers"></a></h2>
 
-        <dt>
+      <div class="section-desc"><p>Helper functions to view datasets and generate metadata</p></div>
 
-          <code><a href="cdc_categories.html">cdc_categories()</a></code>
+      <dl></dl></div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="cdc_count.html">cdc_count()</a></code>
 
         </dt>
-        <dd>List Available Categories</dd>
+        <dd>Get Row Count for a Dataset</dd>
 
         <dt>
 
@@ -81,34 +187,6 @@
 
         <dt>
 
-          <code><a href="cdc_count.html">cdc_count()</a></code>
-
-        </dt>
-        <dd>Get Row Count for a Dataset</dd>
-
-        <dt>
-
-          <code><a href="cdc_datasets.html">cdc_datasets()</a></code>
-
-        </dt>
-        <dd>Search CDC Datasets</dd>
-
-        <dt>
-
-          <code><a href="cdc_datasets_category.html">cdc_datasets_category()</a></code>
-
-        </dt>
-        <dd>Search Datasets by Category</dd>
-
-        <dt>
-
-          <code><a href="cdc_datasets_tag.html">cdc_datasets_tag()</a></code>
-
-        </dt>
-        <dd>Search Datasets by Tag</dd>
-
-        <dt>
-
           <code><a href="cdc_distinct.html">cdc_distinct()</a></code>
 
         </dt>
@@ -116,47 +194,13 @@
 
         <dt>
 
-          <code><a href="cdc_fetch.html">cdc_fetch()</a></code>
-
-        </dt>
-        <dd>Fetch Large CDC Datasets with Pagination</dd>
-
-        <dt>
-
-          <code><a href="cdc_metadata.html">cdc_metadata()</a></code>
-
-        </dt>
-        <dd>Get Dataset Metadata</dd>
-
-        <dt>
-
           <code><a href="cdc_preview.html">cdc_preview()</a></code>
 
         </dt>
         <dd>Preview Dataset Sample</dd>
-
-        <dt>
-
-          <code><a href="cdc_query.html">cdc_query()</a></code>
-
-        </dt>
-        <dd>Query a CDC Dataset</dd>
-
-        <dt>
-
-          <code><a href="cdc_tags.html">cdc_tags()</a></code>
-
-        </dt>
-        <dd>List Available Tags</dd>
-
-        <dt>
-
-          <code><a href="perform_request.html">perform_request()</a></code>
-
-        </dt>
-        <dd>Perform API request and parse response</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
