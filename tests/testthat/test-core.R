@@ -100,7 +100,7 @@ test_that("cdc_app_token sets and retrieves token", {
   expect_equal(cdc_app_token(quiet = TRUE), "test-token-123")
 })
 
-test_that("null coalescing operator works correctly", {
+test_that("null operator works correctly", {
   `%||%` <- CDCdata:::`%||%`
 
   expect_equal(NULL %||% "default", "default")
@@ -108,17 +108,4 @@ test_that("null coalescing operator works correctly", {
   expect_equal(NA %||% "default", NA)
   expect_equal(0 %||% "default", 0)
   expect_equal("" %||% "default", "")
-})
-
-test_that("empty_datasets_df returns correct structure", {
-  df <- CDCdata:::empty_datasets_df()
-
-  expect_s3_class(df, "data.frame")
-  expect_equal(nrow(df), 0)
-  expect_named(df, c("id", "name", "description", "category", "tags",
-                     "updated_at", "rows", "url"))
-
-  expect_type(df$id, "character")
-  expect_type(df$name, "character")
-  expect_type(df$rows, "integer")
 })

@@ -115,6 +115,7 @@ cdc_datasets <- function(query = NULL,
 #' in the api metadata so this has to be created manually using [cdc_count()].
 #' @param cleaned Logical. If `TRUE` (default), returns the cleaned metadata. If `FALSE`, provides the raw metadata
 #' including row_count (unless `include_rowcount = FALSE`).
+#' @param progress Logical. If `TRUE` (default), shows function progress outputs in console.
 #'
 #' @return A list containing:
 #'   - `id`: Dataset identifier

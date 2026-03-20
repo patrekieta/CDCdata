@@ -15,7 +15,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.3
 Imports: 
     httr2 (>= 1.0.0),
-    jsonlite,
     cli
 Suggests: 
     testthat (>= 3.0.0),

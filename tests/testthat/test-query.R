@@ -21,7 +21,7 @@ expect_error(
 test_that("cdc_query accepts valid as parameter values", {
   # These should not error on argument matching (may still fail on network)
   expect_error(
-    cdc_query("swc5-untb", limit = 1, as = "tibble"),
+    cdc_query("swc5-untb", limit = 1, as = "dataframe"),
     NA
  ) |> tryCatch(error = function(e) {
     # Network errors are OK, we're testing argument validation
@@ -58,11 +58,11 @@ test_that("cdc_fetch respects max_rows parameter", {
   expect_lte(nrow(result), 10)
 })
 
-test_that("cdc_query returns expected structure with tibble output", {
+test_that("cdc_query returns expected structure with dataframe output", {
   skip_if_offline()
   skip_on_cran()
 
-  result <- cdc_query("swc5-untb", limit = 5, as = "tibble")
+  result <- cdc_query("swc5-untb", limit = 5, as = "dataframe")
 
   expect_s3_class(result, "tbl_df")
   expect_gt(nrow(result), 0)
