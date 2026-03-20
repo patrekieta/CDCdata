@@ -2,11 +2,13 @@ Package: CDCdata
 Title: Access CDC Open Data Portal Datasets
 Version: 0.1.0
 Authors@R: c(
-    person("Patrick","Rekieta",email = "Patrick.Rekieta@gmail.com", role = c("aut","cre"), comment = c(ORCID = "0009-0005-4446-9665"))
+    person("Patrick","Rekieta",email = "Patrick.Rekieta@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0009-0005-4446-9665"))
   )
 Description: Provides a modern R interface to the CDC's open data portal (data.cdc.gov). 
   Supports dataset discovery, flexible querying with SoQL, pagination, rate limiting, and 
-  optional authentication via app tokens.
+  optional authentication via app tokens. This is an independent open-source project and is not 
+  affiliated with, endorsed by, or representative of the Centers for Disease Control and Prevention 
+  (CDC) or the U.S. Government.
 License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
