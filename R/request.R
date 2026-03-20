@@ -40,15 +40,40 @@ build_request <- function(dataset_id, base_url = .cdc_base_url, format = "json")
   req
 }
 
-
-#' Check if an HTTP error is transient (retryable)
+#' Build a base request to the CDC API
 #'
-#' @param resp An httr2 response object.
-#' @return Logical indicating if the error is transient.
+#' @description Internal function to create an httr2 request object with common
+#' configuration: headers, authentication, retry logic, and rate limiting.
+#'
+#' @param endpoint Character. The API endpoint path.
+#' @param base_url Character. The base URL (default: data.cdc.gov).
+#' @param format Character. Response format: "json" or "csv".
+#'
+#' @return An httr2 request object.
+#'
 #' @noRd
-is_transient_error <- function(resp) {
-  status <- httr2::resp_status(resp)
-  status %in% c(429L, 500L, 502L, 503L, 504L)
+build_request2 <- function(endpoint, base_url = .cdc_base_url, format = "json") {
+
+  accept_header <- if (format == "csv") "text/csv" else "application/json"
+
+  req <- httr2::request(base_url) |>
+    httr2::req_url_path_append(endpoint) |>
+    httr2::req_headers(
+      Accept = accept_header,
+      `User-Agent` = paste0("cdcdata/", utils::packageVersion("cdcdata"))
+    ) |>
+    httr2::req_retry(
+      max_tries = .cdc_defaults$max_retries,
+      is_transient = is_transient_error
+    ) |>
+    httr2::req_throttle(rate = .cdc_defaults$rate_limit)
+
+  token <- cdc_get_token()
+  if (!is.null(token)) {
+    req <- httr2::req_headers(req, `X-App-Token` = token)
+  }
+
+  req
 }
 
 

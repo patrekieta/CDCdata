@@ -8,7 +8,8 @@ cdc_metadata(
   dataset_id,
   include_columns = TRUE,
   include_rowcount = TRUE,
-  cleaned = TRUE
+  cleaned = TRUE,
+  progress = interactive()
 )
 }
 \arguments{

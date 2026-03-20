@@ -21,6 +21,8 @@ cdc_count <- function(dataset_id, where = NULL, ...) {
     select = "count(*) as n",
     where = where,
     as = "dataframe",
+    progress = FALSE,
+    quiet_token = TRUE,
     ...
   )
 
@@ -42,8 +44,8 @@ cdc_count <- function(dataset_id, where = NULL, ...) {
 #' }
 #'
 #' @export
-cdc_columns <- function(dataset_id, ...) {
-  meta <- cdc_metadata(dataset_id, ...)
+cdc_columns <- function(dataset_id) {
+  meta <- cdc_metadata(dataset_id, include_rowcount = FALSE)
   return(meta$cols)
 }
 
@@ -56,6 +58,7 @@ cdc_columns <- function(dataset_id, ...) {
 #' @inheritParams cdc_query
 #' @param column Character. The column name.
 #' @param limit Integer. Maximum distinct values to return (default 100).
+#' @param ... Arguments passed to [cdc_query()]
 #'
 #' @return A data.frame with the distinct values and their counts.
 #'
@@ -90,6 +93,7 @@ cdc_distinct <- function(dataset_id, column, where = NULL, limit = 100, ...) {
 #'
 #' @inheritParams cdc_query
 #' @param n Integer. Number of rows to return (default 10).
+#' @param ... Arguments passed to [cdc_query()]
 #'
 #' @return A data.frame with the sample rows.
 #'
@@ -101,25 +105,4 @@ cdc_distinct <- function(dataset_id, column, where = NULL, limit = 100, ...) {
 #' @export
 cdc_preview <- function(dataset_id, n = 10, ...) {
   cdc_query(dataset_id, limit = n, ...)
-}
-
-
-#' Validate dataset ID format
-#'
-#' @param id The dataset ID to validate.
-#' @noRd
-validate_dataset_id <- function(id) {
-
-  if(!is.character(id) || length(id) != 1 || nchar(id) == 0) {
-    cli::cli_abort("{.arg dataset_id} must be a non-empty string.")
-  }
-
-  if (!grepl("^[a-z0-9]{4}-[a-z0-9]{4}$", id)) {
-    cli::cli_warn(
-      c(
-        "Dataset ID {.val {id}} doesn't match expected format.",
-        "i" = "Expected format: {.val xxxx-xxxx} (e.g., {.val swc5-untb})."
-      )
-    )
-  }
 }

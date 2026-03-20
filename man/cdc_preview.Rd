@@ -11,6 +11,8 @@ cdc_preview(dataset_id, n = 10, ...)
 for PLACES data). You can find this in the dataset URL or via \code{cdc_datasets()}.}
 
 \item{n}{Integer. Number of rows to return (default 10).}
+
+\item{...}{Arguments passed to \code{\link[=cdc_query]{cdc_query()}}}
 }
 \value{
 A data.frame with the sample rows.

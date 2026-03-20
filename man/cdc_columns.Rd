@@ -4,7 +4,7 @@
 \alias{cdc_columns}
 \title{Get Column Names for a Dataset}
 \usage{
-cdc_columns(dataset_id, ...)
+cdc_columns(dataset_id)
 }
 \arguments{
 \item{dataset_id}{Character. The dataset identifier.}

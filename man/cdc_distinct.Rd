@@ -16,6 +16,8 @@ for PLACES data). You can find this in the dataset URL or via \code{cdc_datasets
 Example: \code{"year = '2023' AND stateabbr = 'MN'"}}
 
 \item{limit}{Integer. Maximum distinct values to return (default 100).}
+
+\item{...}{Arguments passed to \code{\link[=cdc_query]{cdc_query()}}}
 }
 \value{
 A data.frame with the distinct values and their counts.

@@ -1,4 +1,4 @@
 library(testthat)
 library(CDCdata)
 
-testthat::test_check("CDCdata")
+test_check("CDCdata")

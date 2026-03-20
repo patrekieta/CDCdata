@@ -18,6 +18,8 @@
 #' @param as_csv Logical. If `TRUE`, requests data in CSV format instead of JSON.
 #'   CSV can be faster for large datasets and may handle some data types differently.
 #'   Default is `FALSE`.
+#' @param progress Logical. If `TRUE`, shows progress messages in the console.
+#' @param quiet_token Logical. If `TRUE`, will not show console alerts for [cdc_app_token()].
 #'
 #' @return A data.frame (default), list, or raw string depending on `as`.
 #'
@@ -76,11 +78,16 @@ cdc_query <- function(dataset_id,
                       offset = NULL,
                       as = c("dataframe", "list", "raw"),
                       as_csv = FALSE,
-                      progress = interactive()) {
+                      progress = interactive(),
+                      quiet_token = FALSE) {
 
   as <- match.arg(as)
 
   validate_dataset_id(dataset_id)
+
+  if(!quiet_token){
+    token <- cdc_app_token()
+  }
 
   format <- if(as_csv){"csv"} else {"json"}
 
@@ -158,6 +165,8 @@ cdc_fetch <- function(dataset_id,
     page_size <- 50000
   }
 
+  token <- cdc_app_token()
+
   all_data <- list()
   offset <- 0
   rows_fetched <- 0
@@ -183,7 +192,8 @@ cdc_fetch <- function(dataset_id,
       offset = offset,
       as = "dataframe",
       as_csv = as_csv,
-      progress = FALSE
+      progress = FALSE,
+      quiet_token = TRUE
     )
 
     if(nrow(chunk) == 0){
@@ -193,7 +203,7 @@ cdc_fetch <- function(dataset_id,
     all_data[[page]] <- chunk
     rows_fetched <- rows_fetched + nrow(chunk)
     offset <- offset + nrow(chunk)
-    page <- page + 1L
+    page <- page + 1
 
     if(progress) {
       cli::cli_alert_info("Fetched {.val {rows_fetched}} rows...")
@@ -205,7 +215,7 @@ cdc_fetch <- function(dataset_id,
     if(rows_fetched >= max_rows) {
       break
     }
-    if(rows_fetched != page_size){
+    if(!is.null(token) && rows_fetched != page_size){
       break
     }
   }

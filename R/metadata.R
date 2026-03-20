@@ -134,18 +134,36 @@ cdc_datasets <- function(query = NULL,
 #' }
 #'
 #' @export
-cdc_metadata <- function(dataset_id, include_columns = TRUE, include_rowcount = TRUE, cleaned = TRUE) {
+cdc_metadata <- function(dataset_id,
+                         include_columns = TRUE,
+                         include_rowcount = TRUE,
+                         cleaned = TRUE,
+                         progress = interactive()) {
 
   validate_dataset_id(dataset_id)
 
   endpoint <- paste0("/api/views/", dataset_id, ".json")
-  req <- build_request(endpoint)
+  req <- build_request2(endpoint)
+
+  data <- perform_request(req, as = "list")
+
+  if(progress) {
+    cli::cli_alert_info("Fetching data from {.val {dataset_id}}...")
+  }
 
   data <- perform_request(req, as = "list")
 
   if(include_rowcount){
+    if(progress) {
+      cli::cli_alert_info("Calculating row count...")
+    }
+
     rows <- CDCdata::cdc_count(dataset_id)
     data$row_count <- rows
+
+    if(progress) {
+      cli::cli_alert_success("Complete: Rows calculated")
+    }
   }
 
   if(!cleaned){
@@ -168,6 +186,11 @@ cdc_metadata <- function(dataset_id, include_columns = TRUE, include_rowcount = 
     cols <- data$columns %||% NA
     result$cols <- cols
   }
+
+  if(progress) {
+    cli::cli_alert_success("Complete: Metadata fetched")
+  }
+
 
   return(result)
 }
@@ -223,7 +246,7 @@ cdc_categories <- function(limit = 100) {
     limit = 0
   )
 
-  req <- httr2::request("https://api.us.socrata.com") |>
+  req <- httr2::request(.socrata_base_url) |>
     httr2::req_url_path("/api/catalog/v1") |>
     httr2::req_url_query(!!!params) |>
     httr2::req_headers(Accept = "application/json") |>
@@ -238,13 +261,13 @@ cdc_categories <- function(limit = 100) {
     cats <- datasets$category[datasets$category != ""]
     cat_counts <- as.data.frame(table(cats), stringsAsFactors = FALSE)
     names(cat_counts) <- c("category", "count")
-    return(as.data.frame(cat_counts))
+    cat_counts <- cat_counts[order(-cat_counts$count), ]
+    return(cat_counts)
+  } else {
+    return(data.frame(category = character(),count = integer()))
   }
 
-  data.frame(
-    category = character(),
-    count = integer()
-  )
+
 }
 
 
@@ -316,7 +339,7 @@ cdc_datasets_category <- function(category,
     params[["q"]] <- query
   }
 
-  req <- httr2::request("https://api.us.socrata.com") |>
+  req <- httr2::request(.socrata_base_url) |>
     httr2::req_url_path("/api/catalog/v1") |>
     httr2::req_url_query(!!!params) |>
     httr2::req_headers(Accept = "application/json") |>
@@ -492,7 +515,7 @@ cdc_datasets_tag <- function(tag,
     params[["q"]] <- query
   }
 
-  req <- httr2::request("https://api.us.socrata.com") |>
+  req <- httr2::request(.socrata_base_url) |>
     httr2::req_url_path("/api/catalog/v1") |>
     httr2::req_url_query(!!!params) |>
     httr2::req_headers(Accept = "application/json") |>

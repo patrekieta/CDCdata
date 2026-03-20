@@ -16,7 +16,8 @@ cdc_query(
   offset = NULL,
   as = c("dataframe", "list", "raw"),
   as_csv = FALSE,
-  progress = interactive()
+  progress = interactive(),
+  quiet_token = FALSE
 )
 }
 \arguments{
@@ -45,6 +46,10 @@ Example: \code{"year = '2023' AND stateabbr = 'MN'"}}
 \item{as_csv}{Logical. If \code{TRUE}, requests data in CSV format instead of JSON.
 CSV can be faster for large datasets and may handle some data types differently.
 Default is \code{FALSE}.}
+
+\item{progress}{Logical. If \code{TRUE}, shows progress messages in the console.}
+
+\item{quiet_token}{Logical. If \code{TRUE}, will not show console alerts for \code{\link[=cdc_app_token]{cdc_app_token()}}.}
 }
 \value{
 A data.frame (default), list, or raw string depending on \code{as}.
