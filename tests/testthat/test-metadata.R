@@ -133,7 +133,7 @@ test_that("cdc_tags returns expected structure", {
   CDCdata:::skip_if_cdc_unavailable()
   skip_on_cran()
 
-  result <- cdc_tags(limit = 20)
+  result <- cdc_tags(limit = 3)
 
   expect_s3_class(result, "data.frame")
   expect_true(all(c("tag", "count") %in% names(result)))

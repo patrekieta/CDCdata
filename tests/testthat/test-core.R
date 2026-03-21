@@ -98,7 +98,14 @@ test_that("cdc_app_token sets and retrieves token", {
 
   cdc_app_token("test-token-123", quiet = TRUE)
   expect_equal(cdc_app_token(quiet = TRUE), "test-token-123")
+
+  cdc_app_token("test-token-456")
+  expect_equal(cdc_app_token(quiet = TRUE), "test-token-456")
+
+  cdc_set_token("test-token-789")
+  expect_equal(cdc_app_token(quiet = TRUE), "test-token-789")
 })
+
 
 test_that("null operator works correctly", {
   `%||%` <- CDCdata:::`%||%`
