@@ -60,7 +60,7 @@ build_request2 <- function(endpoint, base_url = .cdc_base_url, format = "json") 
     httr2::req_url_path_append(endpoint) |>
     httr2::req_headers(
       Accept = accept_header,
-      `User-Agent` = paste0("cdcdata/", utils::packageVersion("cdcdata"))
+      `User-Agent` = paste0("CDCdata/", utils::packageVersion("CDCdata"))
     ) |>
     httr2::req_retry(
       max_tries = .cdc_defaults$max_retries,
