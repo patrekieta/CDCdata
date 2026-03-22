@@ -144,3 +144,17 @@ test_that("cdc_browse validates dataset_id", {
   expect_error(cdc_browse(123))
   expect_error(cdc_browse(""))
 })
+
+test_that("cdc_datasets results in 0 records",{
+
+  result <- cdc_datasets(limit = 0)
+  expect_true(nrow(result)==0)
+})
+
+test_that("cdc_datasets categories issues",{
+  limit = 10
+  result <- cdc_datasets(category = "National Center for Health Statistics",limit = limit)
+  expect_true(nrow(result) <= limit)
+})
+
+
